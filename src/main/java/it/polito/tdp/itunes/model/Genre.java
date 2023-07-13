@@ -1,6 +1,8 @@
 package it.polito.tdp.itunes.model;
 
-public class Genre {
+
+public class Genre implements Comparable<Genre>{
+	
 	private Integer genreId;
 	private String name;
 	
@@ -54,6 +56,11 @@ public class Genre {
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	@Override
+	public int compareTo(Genre o) {
+		return this.name.compareTo(o.name);
 	}
 
 	

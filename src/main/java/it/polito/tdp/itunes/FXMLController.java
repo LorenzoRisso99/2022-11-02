@@ -32,7 +32,7 @@ public class FXMLController {
     private Button btnPlaylist; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbGenere"
-    private ComboBox<?> cmbGenere; // Value injected by FXMLLoader
+    private ComboBox<String> cmbGenere; // Value injected by FXMLLoader
 
     @FXML // fx:id="txtDTOT"
     private TextField txtDTOT; // Value injected by FXMLLoader
@@ -53,6 +53,50 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
+    	
+    	String genere = this.cmbGenere.getValue();
+    	
+    	if(genere == null) {
+    		txtResult.appendText("Seleziona un genere");
+    		return;
+    	}
+    	
+    	int min;
+    	
+		try {
+
+			min = Integer.parseInt(txtMin.getText())*1000;
+
+		} catch (NumberFormatException e) {
+			txtResult.appendText("Inserire valore Min");
+			return;
+		}
+		
+		if(min<(1071/1000)) {
+			txtResult.appendText("Inserire valore Min più alto");
+		}
+		
+		int max;
+
+		try {
+
+			max = Integer.parseInt(txtMax.getText())*1000;
+
+		} catch (NumberFormatException e) {
+			txtResult.appendText("Inserire valore Max");
+			return;
+		}
+		
+		if(max<(5286953/1000)) {
+			txtResult.appendText("Inserire valore Max più basso");
+		}
+		
+		this.model.creaGrafo(genere, min, max);
+		
+		txtResult.appendText("Grafo creato!\n");
+    	txtResult.appendText(String.format("# VERTICI: %d\n", this.model.nVertici()));
+    	txtResult.appendText(String.format("# ARCHI: %d\n", this.model.nArchi()));
+    	
 
     }
 
@@ -70,6 +114,7 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	cmbGenere.getItems().addAll(this.model.getGeneri());
     }
 
 }
