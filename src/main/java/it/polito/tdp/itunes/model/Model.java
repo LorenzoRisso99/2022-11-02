@@ -26,6 +26,7 @@ public class Model {
 	
 	Map<Integer, Track> idMap;
 	
+	Double peso;
 	
 	public Model() {
 		
@@ -55,6 +56,7 @@ public class Model {
 		//Archi
 		
 		adiac = this.dao.getAdiacenze(genere, min, max, idMap);
+		
 		
 		for(Adiacenze a1 : adiac) {
 			for(Adiacenze a2 : adiac) {
